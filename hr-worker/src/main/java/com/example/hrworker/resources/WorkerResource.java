@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@RefreshScope
 @RequestMapping(value = "/workers")
 public class WorkerResource {
 
@@ -45,10 +47,10 @@ public class WorkerResource {
     }
 
     @GetMapping(value = "/configs")
-    public ResponseEntity<Void> getConfig() {
+    public ResponseEntity<String> getConfig() {
 
         logger.info("Configs: " + testConfig);
 
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok("Configs: " + testConfig);
     }
 }
